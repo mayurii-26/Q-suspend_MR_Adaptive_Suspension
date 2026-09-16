@@ -1,0 +1,261 @@
+@import "tailwindcss";
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  body {
+    font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    background-color: #0a0d14;
+    color: #e2e8f0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  #root {
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+  }
+}
+
+@layer utilities {
+  .font-mono {
+    font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'Consolas', monospace;
+  }
+  
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: #1e3a5f #0a0d14;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 4px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: #0a0d14;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: #1e3a5f;
+    border-radius: 2px;
+  }
+
+  .grid-bg {
+    background-image: 
+      linear-gradient(rgba(0, 212, 255, 0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0, 212, 255, 0.025) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+
+  .glow-cyan {
+    box-shadow: 0 0 8px rgba(0, 212, 255, 0.3);
+  }
+
+  .glow-cyan-sm {
+    box-shadow: 0 0 4px rgba(0, 212, 255, 0.2);
+  }
+
+  .glow-violet {
+    box-shadow: 0 0 8px rgba(139, 92, 246, 0.3);
+  }
+
+  .text-glow-cyan {
+    text-shadow: 0 0 10px rgba(0, 212, 255, 0.5);
+  }
+
+  .text-glow-violet {
+    text-shadow: 0 0 8px rgba(139, 92, 246, 0.4);
+  }
+}
+
+/* ── Custom Slider ────────────────────────────────────────────── */
+input[type=range] {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 4px;
+  background: #1a2744;
+  border-radius: 2px;
+  outline: none;
+  cursor: pointer;
+  transition: background 0.25s ease;
+}
+
+input[type=range]:focus {
+  outline: 2px solid rgba(0, 212, 255, 0.4);
+  outline-offset: 3px;
+  border-radius: 3px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00d4ff;
+  cursor: pointer;
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
+  transition: box-shadow 0.2s, transform 0.15s;
+}
+
+input[type=range]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 12px rgba(0, 212, 255, 0.9);
+  transform: scale(1.15);
+}
+
+input[type=range]::-webkit-slider-thumb:active {
+  box-shadow: 0 0 16px rgba(0, 212, 255, 1);
+  transform: scale(1.2);
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: #00d4ff;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 6px rgba(0, 212, 255, 0.6);
+  transition: box-shadow 0.2s;
+}
+
+/* ── Animations ──────────────────────────────────────────────── */
+
+/* Live indicator pulse */
+@keyframes livePulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 4px rgba(74, 222, 128, 0.8); }
+  50% { opacity: 0.5; box-shadow: 0 0 8px rgba(74, 222, 128, 0.4); }
+}
+
+.live-dot {
+  animation: livePulse 2.4s ease-in-out infinite;
+}
+
+/* Number flash on value change */
+@keyframes numberFlash {
+  0% { color: #00d4ff; text-shadow: 0 0 8px rgba(0, 212, 255, 0.8); }
+  100% { color: inherit; text-shadow: none; }
+}
+
+.number-update {
+  animation: numberFlash 0.5s ease-out;
+}
+
+/* Measurement result pop-in */
+@keyframes measurePulse {
+  0%   { transform: scale(0.90); opacity: 0; }
+  60%  { transform: scale(1.04); opacity: 1; }
+  100% { transform: scale(1.00); opacity: 1; }
+}
+
+.measure-animate {
+  animation: measurePulse 0.45s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Flow arrows in system pipeline */
+@keyframes flowPulse {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 0.9; }
+}
+
+.flow-pulse {
+  animation: flowPulse 2.2s ease-in-out infinite;
+}
+
+/* Scanning bar on the header */
+@keyframes scanLine {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(300%); }
+}
+
+.scan-line {
+  animation: scanLine 3s linear infinite;
+}
+
+/* Fade slide in for page transitions */
+@keyframes fadeSlideIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-enter {
+  animation: fadeSlideIn 0.25s ease-out;
+}
+
+/* Progress bar shimmer */
+@keyframes progressShimmer {
+  0%   { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+/* Metric card highlight on change */
+@keyframes cardHighlight {
+  0%   { box-shadow: 0 0 0 1px rgba(0,212,255,0.5); }
+  100% { box-shadow: none; }
+}
+
+.card-updated {
+  animation: cardHighlight 0.6s ease-out;
+}
+
+/* Suspension bounce */
+@keyframes suspensionBounce {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-3px); }
+}
+
+/* Mode badge glow for CRITICAL */
+@keyframes criticalPulse {
+  0%, 100% { box-shadow: 0 0 6px rgba(239, 68, 68, 0.4); }
+  50% { box-shadow: 0 0 16px rgba(239, 68, 68, 0.8); }
+}
+
+.critical-glow {
+  animation: criticalPulse 1.2s ease-in-out infinite;
+}
+
+/* Stable badge subtle glow */
+@keyframes stableGlow {
+  0%, 100% { box-shadow: 0 0 4px rgba(34, 197, 94, 0.2); }
+  50% { box-shadow: 0 0 10px rgba(34, 197, 94, 0.5); }
+}
+
+.stable-glow {
+  animation: stableGlow 2.5s ease-in-out infinite;
+}
+
+/* Tooltip fade in */
+@keyframes tooltipFade {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.tooltip-enter {
+  animation: tooltipFade 0.15s ease-out;
+}
+
+/* Corner accent blink */
+@keyframes accentBlink {
+  0%, 90%, 100% { opacity: 1; }
+  95% { opacity: 0.3; }
+}
+
+.accent-blink {
+  animation: accentBlink 4s ease-in-out infinite;
+}
+
+/* ── Utility transition ──────────────────────────────────────── */
+.transition-value {
+  transition: all 0.3s ease;
+}
